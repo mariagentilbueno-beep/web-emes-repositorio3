@@ -1,0 +1,415 @@
+/* --- ESTILOS BÁSICOS Y RESETEO --- */
+/* Importamos las mismas variables que tenías en estilo-proyectos.css */
+:root {
+    --clr-corporativo-purple: hsl(328, 73%, 23%);
+    --clr-corporativo-blue: hsl(212, 50%, 65%);
+    --clr-corporativo-yellow: hsl(55, 88%, 84%);
+    --clr-corporativo-orange: hsl(26, 91%, 79%);
+    --clr-black: hsl(0, 0%, 0%);
+
+    
+    /* El color de fondo de tus fotos */
+    --text-color-contacto: #333333;
+    /* Color de texto oscuro para los labels */
+    --form-input-color: #333333;
+    /* Color del texto dentro de los inputs */
+    --form-border-color: #333333;
+    /* El color de las líneas de separación */
+
+    --title-font-playfair: 'Playfair Display', serif;
+    --title-font-excon: 'Excon', sans-serif;
+    --text-font-inter: 'Inter', sans-serif;
+
+    --text-size-label: clamp(1rem, 0.906rem + 0.382vw, 1.25rem);
+    --text-size-title-contacto: clamp(1.125rem, 0.374rem + 3.056vw, 3.125rem);
+    --padding-contacto: 10vw;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--clr-corporativo-orange);
+    font-family: var(--text-font-inter);
+    color: var(--clr-black);
+    overflow-x: hidden;
+}
+
+header {
+    padding: clamp(80px, 7vh, 180px) 0 clamp(10px, 3vh, 40px) 0;
+}
+
+
+/* Infografía */
+.contacto-infografia {
+    padding-bottom: var(--padding-secciones);
+}
+
+
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* --- Animaciones Base (Ocultos por defecto) --- */
+/* --- Animaciones Base (Ocultos por defecto) --- */
+.step {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Líneas Móvil (Verticales) --- */
+.line-container {
+    width: 1.5px;
+    height: 120px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    /* Empieza en 0 */
+    background-color: black;
+    transition: height 1s ease-in-out;
+}
+
+/* La clase visible dispara la animación de "pintado" */
+.line-container.visible .line-fill {
+    height: 100%;
+}
+
+.step-number {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.step-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* --- INTRODUCCIÓN --- */
+.contacto-intro {
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contacto-intro h2 {
+    font-family: var(--title-font-excon);
+    font-size: var(--text-size-title-contacto);
+    font-weight: 400;
+}
+
+
+/* --- FORMULARIO (ESTILO VISUAL) --- */
+.contacto-form {
+    padding: var(--padding-contacto);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contacto-form fieldset {
+    border: none;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--form-border-color);
+    /* La línea de separación */
+}
+
+/* Los labels están arriba, como en el diseño */
+.form-group label {
+    display: block;
+    font-size: var(--text-size-label);
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+/* Estilos para los inputs y el textarea */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    font-family: var(--text-font-inter);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+}
+
+
+
+/* El textarea se expandirá si es necesario */
+.form-group textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 40px;
+}
+
+/* Botón "Enviar" */
+.form-actions {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Política de privacidad y checkbox */
+.politica-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.politica-group input[type="checkbox"] {
+    appearance: none;
+    /* Quitamos el checkbox por defecto */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--form-border-color);
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.politica-group input[type="checkbox"]:checked {
+    background-color: var(--clr-corporativo-purple);
+    /* Color corporativo al clicar */
+    border-color: var(--clr-corporativo-purple);
+}
+
+.politica-group label {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.4;
+    font-family: var(--text-font-inter);
+}
+
+.politica-group a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Clase para la accesibilidad (sr-only) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+
+/* mensaje thank you */
+.contacto-section.is-success {
+    display: flex !important;
+    /* Cambiamos el Grid por Flex para centrar */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa todo el alto */
+    text-align: center;
+}
+
+/* Ocultamos todo lo que no sea el mensaje de agradecimiento */
+.is-success .contacto-intro,
+.is-success .contacto-form {
+    display: none !important;
+}
+
+.thank-you {
+    padding: var(--padding-contacto);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+/* Clase que activaremos con JS */
+.thank-you.is-visible {
+    display: block !important;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.thank-you h2 {
+    margin-bottom: 20px;
+}
+
+.thank-you p {
+    font-family: var(--text-font-inter);
+    font-size: var(--text-size-text);
+    align-items: center;
+}
+
+
+
+/* --- MEDIA QUERY PARA ESCRITORIO (>= 768px) --- */
+@media (min-width: 768px) {
+
+    /* infografía */
+    .contacto-infografia {
+        padding: var(--padding-secciones) 0;
+    }
+
+        .title-info {
+            padding-top: var(--nav-height);
+            padding-bottom: 4rem;
+        }
+        .steps-container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: var(--padding-secciones);
+        }
+    
+        .step {
+            flex: 1;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+            /* Para que el número quede por encima de la línea si se cruzan */
+        }
+    
+        /* --- Transformamos las líneas a Horizontales --- */
+        .line-container {
+            position: absolute;
+            height: 2px;
+            /* La línea ocupa aprox el espacio entre los centros de las columnas */
+            width: calc(33.33% - 60px);
+            top: 35px;
+            /* Alinear con el centro visual de los números */
+            margin: 0;
+            z-index: 1;
+        }
+    
+        /* Posicionamos matemáticamente las líneas entre los bloques */
+        .line-1-2 {
+            left: calc(16.66% + 30px);
+        }
+    
+        .line-2-3 {
+            left: calc(50% + 30px);
+        }
+    
+        .line-fill {
+            width: 0%;
+            /* En horizontal, animamos el ancho */
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+    
+        .line-container.visible .line-fill {
+            width: 100%;
+            height: 100%;
+        }
+
+        .line-container.visible .line-fill {
+                    width: 100% !important;
+                    transition-delay: 0s !important;
+                }
+        
+        .step.visible {
+                    transition-delay: 0s !important;
+                }
+
+
+
+    .contacto-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+        }
+
+    /* Estilos para el texto de introducción en escritorio */
+    .contacto-intro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 10vw;
+        text-align: center;
+        opacity: 0;
+        transform: translateX(-50px);
+        /* animation: fadeInIntro 1s ease forwards; */
+        padding-right: 0;
+    }
+
+    .contacto-intro h2 {
+        line-height: 1.1;
+        max-width: 600px;
+    }
+
+
+    /* FORMULARIO EN ESCRITORIO (ANIMACIÓN DE ENTRADA) */
+    .contacto-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: none;
+        width: 100%;
+        padding-left: 5vw;
+        opacity: 0;
+        /* Espacio para que no se pegue al texto de intro */
+        transform: translateX(50px);
+            /* animation: fadeInIntro 1s ease forwards; */
+    }
+
+    /* se controla con el JS */
+    .contacto-intro.visible,
+    .contacto-form.visible {
+        animation: fadeInIntro 1s ease forwards;
+    }
+
+   
+    /* Ajustes menores para escritorio */
+    .form-group label {
+        font-size: 16px;
+    }
+
+
+    /* Animaciones fadeIn */
+    @keyframes fadeInIntro {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}

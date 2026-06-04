@@ -1,0 +1,312 @@
+
+/* Contenedor anclado a la pantalla */
+.contenedor-fondo-fijo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    /* Queda por DETRÁS de todos tus servicios */
+    pointer-events: none;
+    /* Permite hacer click y scroll sobre los textos libremente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: transparent;
+    /* Permite que se vea si tienes fondos definidos */
+}
+
+/* El SVG mantiene su proporción y se adapta al contenedor sin deformarse */
+#svg-fondo-fijo {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Asegura que mantenga la relación de aspecto 1440x900 */
+}
+
+/* IMPORTANTE: Tus bloques de servicios existentes deben tener fondo transparente */
+.pagina-servicios,
+.servicios__lista,
+.servicio-detalle {
+    background-color: transparent !important;
+    position: relative;
+    z-index: 1;
+    /* Forzamos a que queden por encima del fondo fijo */
+}
+
+/* Suavizado milimétrico para el desplazamiento de la pelota */
+#pelota-scroll-fija {
+    transition: cx 0.05s ease-out, cy 0.05s ease-out;
+}
+
+
+.pagina-servicios {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-secciones);
+}
+
+.servicios__titulo-pagina {
+    text-align: center;
+    padding: clamp(80px, 7vh, 180px) 0 clamp(10px, 3vh, 40px) 0;
+    margin: 0;
+}
+
+.servicios__lista {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(30px, 6vh, 60px);
+    padding: clamp(30px, 6vh, 60px) 0 0;
+}
+
+/* .servicio-detalle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+} */
+
+.servicio-detalle {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* .servicio-detalle--derecha {
+    flex-direction: row-reverse;
+} */
+
+.servicio-detalle--derecha {
+    flex-direction: column;
+}
+
+.js-loaded .servicio-detalle:nth-child(odd) {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.js-loaded .servicio-detalle:nth-child(even) {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+.js-loaded .servicio-detalle.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* .servicio-detalle__icono {
+    flex-shrink: 0;
+    width: clamp(140px, 45vw, 320px);
+} */
+
+.servicio-detalle__icono {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .servicio-detalle__icono svg {
+    width: 100%;
+    height: auto;
+    display: block;
+} */
+
+.servicio-detalle__icono svg {
+    width: clamp(160px, 60vw, 280px);
+    height: auto;
+}
+
+.servicio-detalle__icono--vertical {
+    width: auto;
+    height: clamp(130px, 44vw, 360px);
+}
+
+.servicio-detalle__icono--vertical svg {
+    width: auto;
+    height: 100%;
+}
+
+/* .servicio-detalle__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+} */
+
+.servicio-detalle__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 35ch; /* mismo ancho que el svg para que se alineen */
+    padding: 25px;
+    }
+
+.servicio-detalle__nombre {
+    font-family: var(--title-font-playfair);
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+    font-style: italic;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+}
+
+.servicio-detalle__descripcion {
+    font-family: var(--text-font-inter);
+    font-size:clamp(0.8rem, 0.663rem + 1vw, 1.5rem);
+    color: var(--clr-black);
+    line-height: 1.5;
+    text-align: left;
+}
+
+.servicio-info {
+    align-items: flex-start;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+}
+
+.servicio-info li {
+    font-family: var(--text-font-inter);
+    font-size: clamp(0.75rem, 3vw, 1rem);
+    color: hsl(0, 0%, 40%);
+    text-align: left;
+}
+
+/* CTA contacto */
+.cta_contacto {
+    display: flex;
+    flex-direction: column;
+    width: clamp(300px, 80%, 600px);
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(100px, 8vh, 200px) 0 clamp(125px, 10vh, 250px);
+    gap: var(--gap-secciones);
+
+}
+
+.proyectos__frase {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0;
+    white-space: nowrap;
+    justify-content: center;
+}
+
+
+/* DESKTOP */
+@media (min-width: 768px) {
+
+    .pagina-servicios {
+        padding: 0 clamp(20px, 4vw, 60px);
+    }
+
+    .servicios__lista {
+        gap: clamp(50px, 8vh, 100px);
+        align-items: stretch;
+        padding: clamp(60px, 8vw, 120px) 0 0;
+    }
+
+    .servicio-detalle {
+        gap: clamp(40px, 6vw, 80px);
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .servicio-detalle--derecha {
+        flex-direction: row-reverse;
+    }
+
+    .servicio-detalle__icono {
+        width: clamp(220px, 38vw, 480px);
+        flex-shrink: 0;
+        display: flex;
+        justify-content: flex-start;
+         }
+
+    .servicio-detalle__icono svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        }
+
+    .servicio-detalle__icono--vertical {
+        width: clamp(100px, 20vw, 280px);
+        height: auto;
+    }
+
+    .servicio-detalle__icono--vertical svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .servicio-detalle--derecha .servicio-detalle__icono {
+            justify-content: flex-end;
+        }
+
+    .servicio-detalle__nombre {
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        text-align: left;
+        width: auto;
+        
+    }
+     /* ch es la unidad específicamente diseñada para medir texto,
+    así que es la opción más adecuada para max-width en bloques de párrafos. */
+
+    .servicio-detalle__texto {
+        max-width: 45ch;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        text-align: left;
+        
+        }
+
+    .servicio-detalle__descripcion{
+        font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+        max-width: 55ch;
+    }
+    
+    
+    .servicio-info li {
+        font-size: clamp(0.85rem, 1vw, 1rem);
+    }
+
+    .servicio-detalle--derecha .servicio-detalle__texto {
+            align-items: flex-end;
+            text-align: right;
+        }
+
+    .servicio-detalle--derecha .servicio-detalle__nombre {
+            text-align: right;
+        }
+
+    .servicio-detalle--derecha .servicio-info {
+        align-items: flex-end;
+    }
+
+    .servicio-detalle--derecha .servicio-detalle__descripcion {
+        text-align: right;
+        }
+
+    .cta_contacto {
+            padding: clamp(200px, 9vh, 250px) 0 clamp(225px, 11vh, 275px);
+        }
+    
+}

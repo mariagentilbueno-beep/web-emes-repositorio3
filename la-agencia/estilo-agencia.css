@@ -1,0 +1,373 @@
+/* SECCIÓN SOBRE */
+.svg-container {
+     position: fixed;
+     inset: 0;
+     z-index: 1;
+     pointer-events: none;
+     overflow: hidden;
+ }
+
+.sobre__svg.mobile {
+    display: block;
+}
+
+.sobre__svg.desktop {
+    display: none;
+}
+
+.sobre__svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sobre__texto {
+    position: relative;
+    z-index: 1;
+}
+
+
+@keyframes flotar1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(4px, -6px) rotate(1deg);
+    }
+}
+
+@keyframes flotar2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(-5px, 4px) rotate(-1.5deg);
+    }
+}
+
+@keyframes flotar3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(3px, 7px) rotate(1deg);
+    }
+}
+
+.sobre__svg path:nth-child(odd) {
+    animation: flotar1 6s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.sobre__svg path:nth-child(even) {
+    animation: flotar2 8s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.sobre__svg path:nth-child(3n) {
+    animation: flotar3 7s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.sobre__svg.desktop path:nth-child(16) {
+    animation: flotar3 6s ease-in-out infinite;
+}
+
+.sobre__svg.mobile path:nth-child(2){
+    animation: flotar3 6s ease-in-out infinite;
+}
+.sobre__svg.mobile path:nth-child(20) {
+    animation: flotar3 6s ease-in-out infinite;
+}
+
+.seccion-sobre {
+    background-color: var(--clr-corporativo-yellow);
+    padding: 0 var(--padding-movil);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(50px, 5vh, 60px);
+    min-height: 100vh;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.sobre__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.sobre__titulo1 {
+    text-align: left;
+}
+
+.sobre__titulo2 {
+    margin-top: clamp(-8px, -2vh, -3px);
+    text-align: left;
+    margin-left: clamp(15px, 3vw, 40px);
+}
+
+.sobre__descripcion {
+    font-family: var(--text-font-inter);
+    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+    line-height: 1.6;
+    max-width: 40ch;
+}
+
+.sobre__texto {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 40px);
+    position: relative;
+    z-index: 1;
+}
+
+.texto_playfair {
+    font-family: var(--title-font-playfair);
+    font-weight: 700;
+}
+
+.logo-inline {
+    height: 0.65em;
+    width: auto;
+    vertical-align: middle;
+    display: inline-block;
+    margin-bottom: 0.1em;
+}
+
+/* SECCIÓN GALERÍA */
+.seccion-galeria {
+    width: 100%;
+    height: 100vh;
+}
+
+.galeria__stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.galeria__grid {
+    display: grid;
+    gap: 0;
+}
+
+.galeria__cell {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.galeria__cell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    opacity: 1;
+}
+
+.galeria__cell:hover::before,
+.galeria__cell.visible-mobile::before {
+    opacity: 0;
+}
+
+.galeria__cell:not(:hover)::before {
+        transition: opacity 0s ease 1.5s;
+    }
+    
+
+.galeria__cell:hover::before,
+.galeria__cell:active::before {
+    opacity: 0;
+}
+
+.galeria__texto{
+    position: absolute;
+    /* top: 50%; */
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+    width: 80%;
+}
+
+
+.galeria__titulo1 {
+    text-align: right;
+}
+
+.galeria__titulo2 {
+    margin-top: clamp(-8px, -2vh, -3px);
+    text-align: right;
+}
+
+/* SECCIÓN CITA */
+.seccion-cita {
+    background-color: var(--clr-corporativo-blue);
+    padding: clamp(50px, 10vh, 100px) var(--padding-movil);
+}
+
+.cita__texto {
+    font-family: var(--text-font-inter);
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    line-height: 1.7;
+    color: var(--clr-corporativo-yellow);
+}
+
+/* SECCIÓN PATH */
+
+/* ocultamos por defecto el de móvil porque lo hicimos después */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+.svg-animation-section {
+    /* reducimos el scroll total */
+    height: 150vh;
+    /* Controla cuánto scroll dura la animación */
+    position: relative;
+    background-color: #ffffff;
+    margin-top: -10px;
+    margin-bottom: 0;
+}
+
+.svg-sticky-container {
+    position: sticky;
+    top: 0;
+    /* para que la animación no haga espacios en blanco al principio/final hay que definir altura para que funcione sticky */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Mantenemos centrado, pero ajustaremos el SVG */
+    justify-content: center;
+    /* con overflow:hidden se cortan los bordes */
+    overflow: visible;
+
+}
+
+#logo-animado-desktop {
+    /* Desktop */
+    width: 100%;
+    height: auto;
+}
+
+#logo-animado-mobile {
+    /* Mobile */
+    width: 100%;
+    /* No le des 100% para que respire por los lados */
+    height: auto;
+}
+
+.st3,
+.st4,
+.st5,
+.st6 {
+    fill: none;
+    transition: stroke-dashoffset 0.1s linear;
+    /* Suaviza el dibujo al hacer scroll */
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .svg-animado {
+        width: 100%;
+        /* Ocupa el ancho del móvil */
+        height: auto;
+    }
+
+    /* grosor para movil */
+    .mobile-only .st3,
+    .mobile-only .st4,
+    .mobile-only .st5,
+    .mobile-only .st6 {
+        stroke-width: 25px;
+        /* Aquí controlas el grosor de tu nuevo diseño móvil */
+    }
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+.sobre__svg.mobile {
+        display: none;
+    }
+
+    .sobre__svg.desktop {
+        display: block;
+    }
+
+.seccion-sobre {
+        padding: 0 var(--padding-desktop);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+ .sobre__descripcion {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+
+.seccion-cita {
+   padding: clamp(70px, 14vh, 140px) var(--padding-desktop);
+}
+
+.cita__texto {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    margin: 0 auto;
+}
+
+/* SECCIÓN PATH DESKTOP */
+#logo-animado {
+    /* width: 90%; */
+    /* En desktop volvemos al tamaño estándar */
+    /* max-width: 1200px; */
+    transform: translateY(0);
+}
+
+.svg-animation-section {
+    height: 300vh;
+}
+/* SECCIÓN PATH DESKTOP */
+
+.galeria__cell.visible-mobile::before {
+    opacity: 0;
+}
+}
+

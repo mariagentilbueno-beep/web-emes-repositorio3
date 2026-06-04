@@ -1,0 +1,183 @@
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-font-inter);
+}
+
+h2 {
+    font-family: var(--title-font-excon);
+    font-size: var(--text-size-title-excon);
+}
+
+h2 span {
+    font-family: var(--title-font-playfair);
+}
+
+
+/* --- SECCIÓN PRINCIPAL Y CUADRÍCULA --- */
+.projects-section {
+    position: relative;
+    min-height: 100vh;
+    /* Duración del scroll */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.projects-grid {
+    padding: 0 var(--padding-movil);
+    position: sticky;
+    top: var(--nav-height);
+    /* Para que no se pegue al techo si hay nav */
+    left: 0;
+    width: 100%;
+    /* En móvil, bajamos la altura para que no flote en el medio de la nada */
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    gap: 15px;
+    margin: 0 auto;
+    /* Alineamos al inicio (arriba) en lugar de al centro */
+    align-content: start;
+    box-sizing: border-box;
+    padding-bottom: var(--padding-secciones);
+}
+
+/* --- LAS COLUMNAS (LOS CARRILES) --- */
+.carousel-track {
+    position: relative;
+    /* En móvil, carriles más cortos para que el usuario entienda que hay más abajo */
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 20px;
+    /* Un pequeño respiro respecto al título */
+}
+
+.project-list {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+}
+
+.project-card {
+    width: calc(100% - (var(--card-margin) * 2));
+    aspect-ratio: 1 / 1;
+    /* Mantiene el formato cuadrado */
+    margin: var(--card-margin) auto;
+    perspective: none;
+    /* Crucial para el efecto 3D */
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    /* height: 100%; */
+    transition: none;
+    transform-style: flat;
+}
+
+.card-front,
+.card-back {
+    position: relative;
+    width: 100%;
+    backface-visibility: visible;
+    transform: none !important;
+}
+
+
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-back {
+    font-family: var(--text-font-inter);
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    padding: 10px 0;
+    display: block;
+    padding: 10px 0 40px 0;
+    text-align: left;
+}
+
+
+/* --- DESKTOP--- */
+@media (min-width: 768px) {
+    .h2__header {
+        padding: clamp(100px, 6vh, 170px) 0 clamp(10px, 3vh, 40px) 0;
+    }
+
+    .projects-grid {
+        height: 90vh;
+        /* Recuperamos altura en pantallas grandes */
+        align-content: center;
+        /* Aquí sí queda bien centrado verticalmente */
+        padding: 0 var(--padding-desktop);
+        gap: clamp(10px, 4vh, 50px);
+    }
+
+
+    .carousel-track {
+        height: 80vh;
+        /* Un poco más corto para que se vea el título arriba */
+    }
+
+    /* Restauramos el efecto 3D solo para Desktop */
+    .project-card {
+        perspective: 1000px;
+    }
+
+    .card-inner {
+        position: relative;
+        height: 100%;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+    }
+
+    /* .project-card:hover .card-inner {
+    transform: rotateY(180deg);
+} */
+
+    .card-front,
+    .card-back {
+        position: absolute;
+        /* Volvemos a superponerlas */
+        top: 0;
+        left: 0;
+        height: 100%;
+        backface-visibility: hidden;
+    }
+
+    .card-back {
+        background-color: var(--clr-corporativo-purple);
+        color: white;
+        transform: rotateY(180deg) !important;
+        display: flex;
+        /* Centrado para el efecto hover */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    /* Buscamos la línea que ya tenías y le añadimos el :not() */
+    .projects-grid:not(.is-scrolling) .project-card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    /* Opcional: suavizar el regreso cuando paramos el scroll */
+    .card-inner {
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}

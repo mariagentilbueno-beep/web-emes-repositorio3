@@ -1,0 +1,44 @@
+main {
+    background-color: var(--clr-corporativo-blue);
+    padding: var(--padding-secciones) 0;
+    padding-bottom: clamp(100px, 30vh, 300px);
+}
+
+/* para esto haría el tamaño del título mucho más grande */
+
+.bold {
+    font-weight: bold;
+}
+.h2__header_display {
+    display: flex;
+    flex-direction: column;
+}
+
+.padding-movil {
+    padding: 0 var(--padding-movil);
+}
+
+.article__space_p {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 1.5rem, 40px);
+}
+
+.article__space_p div {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1rem, 20px);
+}
+
+ul {
+    padding-left: clamp(40px, 20%, 80px);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+@media (min-width: 768px) {
+    .padding-desktop {
+        padding: 0 var(--padding-desktop);
+    }
+}

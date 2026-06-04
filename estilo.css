@@ -1,0 +1,1225 @@
+:root {
+    --clr-corporativo-purple: hsl(328, 73%, 23%);
+    --clr-corporativo-blue: hsl(212, 50%, 65%);
+    --clr-corporativo-yellow: hsl(55, 88%, 84%);
+    --clr-corporativo-orange: hsl(26, 91%, 79%);
+    --clr-black: hsl(0, 0%, 0%);
+    /* para darle altura fija al nav */
+    --nav-height: clamp(80px, 10vh, 80px);
+    --title-font-playfair: 'Playfair Display', serif; 
+    --title-font-excon: 'Excon', sans-serif;
+    --text-font-inter: 'Inter', sans-serif;
+    --text-size-text: clamp(1rem, 0.763rem + 1vw, 1.5rem);
+    --text-size-title-excon: clamp(1.325rem, 0.374rem + 3.056vw, 3rem);
+    --text-size-title-playfairdisplay: clamp(1.8rem, 0.163rem + 5.443vw, 4.9rem);
+    --text-size-title-playfairdisplay-entre-excon: clamp(1.125rem, 0.374rem + 3.056vw, 3.125rem);
+    --text-size-copyright: clamp(1rem, 3%, 1.25rem);
+
+    --padding-movil: 4vw; /* Límites retícula */
+    --padding-desktop: 2vw;
+    --padding-secciones: clamp(30px, 8vh, 40px); /* padding arriba-abajo entre secciones */
+    --gap-secciones: clamp(10px, 5vh, 40px); /* espacio entre los contenidos dentro de las secciones */
+    --text-size-text-2: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+    --text-size-info_card:clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* CLASES UTILITARIAS */
+.btn {
+    display: inline-block;
+    align-self: center;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    padding: clamp(10px, 1.3vw, 15px) clamp(40px, 4.2vw, 60px);
+    border-radius: 42px;
+    background: var(--clr-corporativo-purple);
+    color: var(--clr-corporativo-yellow);
+    font-family: var(--text-font-inter);
+    font-size: var(--text-size-text);
+    font-weight: 600;
+    border: 2px solid transparent;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--clr-corporativo-yellow);
+    color: var(--clr-corporativo-purple);
+    border-color: var(--clr-corporativo-purple);
+}
+
+.titulo1-excon {
+    text-align: center;
+    font-family: var(--title-font-excon);
+    font-size: var(--text-size-title-excon);
+    font-weight: 400;
+}
+
+.titulo2-playfair {
+    text-align: center;
+    font-family: var(--title-font-playfair);
+    font-size: var(--text-size-title-playfairdisplay);
+    font-style: italic;
+    font-weight: 700;
+    margin-top: clamp(-4px, -1vh, -2px);
+}
+
+.vertical-align{
+    vertical-align: middle;
+}
+
+.contenido-pag {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-secciones);
+}
+
+.mobile {
+    display: block;
+}
+
+.desktop {
+    display: none;
+}
+
+.titulo-pagina {
+    text-align: center;
+    padding: clamp(140px, 9vh, 300px) 0 0;
+}
+
+
+body {
+    font-family: var(--text-font-inter);
+    overflow-x: hidden;
+}
+
+.text-size-2 {
+    font-size: var(--text-size-text-2);
+}
+
+/* Ocultar el texto del logo pero mantenerlo para SEO */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* --- HEADER Y NAV --- */
+.nav-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding-movil);
+    z-index: 1000;
+}
+
+.emes-logo-svg {
+    height: clamp(35px, 5vw, 50px);
+    display: block;
+    vertical-align: middle;
+}
+
+/* Ocultamos el checkbox físicamente */
+.menu-checkbox {
+    display: none;
+}
+
+/* --- ICONO HAMBURGUESA --- */
+.nav__burguer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1100;
+    position: relative;
+}
+
+.nav__burguer span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--clr-corporativo-purple);
+    transition: 0.3s;
+}
+
+/* transparencia en el header al hacer scroll */
+.nav--scrolled {
+    background: hsla(0, 0%, 100%, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.3s ease;
+    /* degradado del borde */
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+}
+
+/* --- OVERLAY MÓVIL --- */
+.menu__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    inset: 0;
+    background: var(--clr-corporativo-yellow);
+    display: flex;
+    /* con este flex direction se suben las palabras del menu overlay */
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    justify-content: flex-start;
+    align-items: center;
+    transform: translateX(100%);
+    /* Escondido arriba */
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 999; /* por debajo del nav*/
+    gap: clamp(20px, 6vh, 60px); /* un solo gap continuo para todo */
+}
+
+.menu__overlay_header {
+    padding: var(--padding-movil);
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.menu__overlay_header .cls-1 {
+    stroke-width: 1.8px;
+}
+
+
+.menu__overlay_nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.menu__overlay_nav_list a {
+    display: block;
+    padding: clamp(4px, 1vh, 10px); /* padding entre links que escala */
+    font-size: clamp(1.5rem, 7vw, 2rem); /* escala entre móviles pequeños y grandes */
+    color: var(--clr-black);
+    text-decoration: none;
+    font-family: var(--text-font-inter);
+    font-weight: bold;
+}
+
+.menu__overlay_nav_list {
+    list-style: none;
+    text-align: center;
+    padding: 0; /* sin padding extra que rompa la proporción */
+}
+
+.menu__overlay_footer {
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 2vh, 30px);
+    padding-bottom: 5vh;
+}
+
+.logo-mm-contorno__footer {
+    width: clamp(200px, 40vw, 300px);
+    height: auto;
+    display: block;
+    /* evita el espacio baseline de las imágenes inline */
+    margin-top: 2rem;
+}
+
+.footer__items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.footer__social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer__social-icons svg {
+    width: clamp(20px, 5vw, 28px);
+    height: clamp(20px, 5vw, 28px);
+}
+
+.footer__social-icons a {
+    display: flex;
+    align-items: center;
+    color: var(--clr-corporativo-purple);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer__copyright {
+    font-family: var(--text-font-inter);
+    font-size: 0.8rem;
+    color: var(--clr-black);
+    font-weight: 500;
+    font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        }
+
+/* --- LÓGICA DE ACTIVACIÓN --- */
+
+/* 1. Cuando el input está checked, movemos el overlay */
+.menu-checkbox:checked~.menu__overlay {
+    transform: translateY(0);
+}
+
+/* 2. Animamos las rayas para que formen una X */
+.menu-checkbox:checked~.nav__burguer span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-checkbox:checked~.nav__burguer span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-checkbox:checked~.nav__burguer span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.menu-checkbox:checked~.menu__overlay {
+    overflow: hidden;
+}
+/* --- OVERLAY MÓVIL --- */
+
+/* --- RESPONSIVE / DESKTOP --- */
+.header__menu {
+    display: none;
+}
+
+/* el footer está oculto por defecto por la lógica mobile first, en móvil ni existe ni ocupa espacio */
+.footer {
+    display: none;
+}
+
+/* IMAGEN HERO */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero__img--mobile {
+    display: block;
+}
+
+.hero__img--desktop {
+    display: none;
+}
+/* IMAGEN HERO */
+
+/* SERVICIOS */
+.titulo-logo-emes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.titulo-logo-emes svg {
+    height: calc(var(--text-size-title-playfairdisplay) * 0.7);
+    width: auto;
+}
+
+.seccion-servicios {
+    padding: var(--padding-secciones) var(--padding-movil) 0; 
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-secciones);
+}
+
+.servicios__header {
+    text-align: center;
+    padding: 0 var(--padding-movil);
+}
+
+.servicios__lista {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 5vh, 50px);
+    align-items: center;
+    
+}
+
+.servicio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+/* los servicios alternos tienen el texto a la izquierda y el icono a la derecha */
+.servicio--derecha {
+    flex-direction: row-reverse;
+}
+
+.servicio__icono {
+    flex-shrink: 0;
+    width: clamp(140px, 45vw, 320px);
+}
+
+.servicio__icono svg {
+    width: 100%;
+    height: auto;
+}
+
+.servicio__icono--vertical {
+    width: auto;
+    height: clamp(130px, 44vw, 360px);
+}
+
+.servicio__icono--vertical svg {
+    width: auto;
+    height: 100%;
+}
+
+/* el texto empieza oculto y aparece con scroll */
+.servicio__texto {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* para los servicios alternos el texto viene desde la derecha */
+.servicio--derecha .servicio__texto {
+    transform: translateX(20px);
+}
+
+/* clase que añade el JS cuando el elemento entra en pantalla */
+.servicio__texto.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.servicio__cta {
+    font-family: var(--title-font-excon);
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.servicio__descripcion {
+    font-family: var(--text-font-inter);
+    font-size: clamp(0.8rem, 4vw, 1rem);
+    color: hsl(0, 0%, 40%);
+    margin-bottom: 2px;
+}
+
+.servicio__nombre {
+    font-family: var(--title-font-playfair);
+    font-size: clamp(1rem, 6vw, 1.8rem);
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 9px;
+    color: var(--clr-black);
+}
+
+
+.seccion-servicios .btn {
+    align-self: center;
+}
+
+/* SECCIÓN PROYECTOS */
+
+.seccion-proyectos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-secciones);
+    overflow: hidden;
+}
+
+.proyectos__header {
+    text-align: center;
+    padding: 0 var(--padding-movil);
+}
+
+/* position:relative para anclar las flechas absolutas.
+overflow:hidden recorta lo que se sale del slider */
+.proyectos__slider-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* en móvil permite deslizar con el dedo */
+    touch-action: pan-x;
+}
+
+/* Fila de tarjetas. El JS cambia translateX
+   y este transition anima ese cambio */
+.proyectos__slider {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.5s ease;
+    /* Avisa al navegador que este elemento se va a animar para que lo optimice en GPU */
+    will-change: transform;
+}
+
+/* flex-shrink:0 impide que las tarjetas se encojan.
+   flex-direction:column apila imagen arriba y texto abajo */
+.proyecto {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    width: clamp(200px, 45vw, 260px);
+    /* espacio entre imagen y texto */
+}
+
+/* Wrapper de la imagen: position:relative para el zoom,
+   overflow:hidden para recortarlo */
+.proyecto__imagen-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; /* proporciones sin fijar altura */
+    overflow: hidden;
+    border-radius: 10px;
+    
+}
+
+/* La imagen rellena el wrapper sin deformarse */
+.proyecto__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease; /* para el zoom en hover desktop */
+}
+
+/* Texto debajo de la imagen en móvil empieza oculto y aparece con scroll (JS) */
+.proyecto__info {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(6px, 1vw, 10px) var(--padding-movil) 0;
+    gap: 10px;
+}
+.proyecto__nombre {
+    font-family: var(--text-font-inter);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 700;
+    color: var(--clr-black);
+}
+
+.proyecto__descripcion {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--text-font-inter);
+    font-size: var(--text-size-text);
+    color: var(--clr-black);
+    gap: 4px;
+}
+
+/* flechas del slider desktop */
+.proyectos__flecha {
+    display: none;
+}
+/* SECCIÓN PROYECTOS */
+
+/* SECCIÓN PATH */
+
+/* ocultamos por defecto el de móvil porque lo hicimos después */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+.tablet-only {
+    display: none;
+}
+
+.svg-animation-section {
+    /* reducimos el scroll total */
+    height: 150vh;
+    /* Controla cuánto scroll dura la animación */
+    position: relative;
+    background-color: #ffffff;
+    margin-top: -10px;
+    margin-bottom: 0;
+}
+
+.svg-sticky-container {
+    position: sticky;
+    top: 0;
+    /* para que la animación no haga espacios en blanco al principio/final hay que definir altura para que funcione sticky */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Mantenemos centrado, pero ajustaremos el SVG */
+    justify-content: center;
+    /* con overflow:hidden se cortan los bordes */
+    overflow: visible;
+
+}
+
+#logo-animado-desktop {
+    /* Desktop */
+    width: 100%;
+    height: auto;
+}
+
+#logo-animado-mobile {
+    /* Mobile */
+    width: 100%;
+    /* No le des 100% para que respire por los lados */
+    height: auto;
+}
+
+.st3,
+.st4,
+.st5,
+.st6 {
+    fill: none;
+    transition: stroke-dashoffset 0.1s linear;
+    /* Suaviza el dibujo al hacer scroll */
+}
+
+/* media query para tablets */
+@media (min-width: 769px) and (max-width: 976px) {
+    .mobile-only {
+        display: none;
+    }
+
+    /* Ocultamos el de escritorio para que no se solape ni se deforme */
+    .desktop-only {
+        display: none;
+    }
+
+    /* Mostramos el nuevo contenedor de tablet */
+    .tablet-only {
+        display: block;
+    }
+
+    /* Forzamos a que el SVG en tablets respire y no se desborde horizontal ni verticalmente */
+    #logo-animado-tablet {
+        width: 100%;
+        height: auto;
+        max-height: 75vh;
+        /* Evita que en tablets bajitas el SVG sea más alto que la pantalla */
+        margin: 0 auto;
+    }
+
+    /* Opcional: Si quieres ajustar el grosor de las líneas en tablet puedes hacerlo aquí */
+    .tablet-only .st3,
+    .tablet-only .st4,
+    .tablet-only .st5,
+    .tablet-only .st6 {
+        stroke-width: 18px;
+        /* Un grosor intermedio entre móvil y desktop si lo requiere */
+    }
+}
+
+
+
+/* media query para movil */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .tablet-only {
+        display: none;
+    }
+
+    .svg-animado {
+        width: 100%;
+        /* Ocupa el ancho del móvil */
+        height: auto;
+    }
+
+    /* grosor para movil */
+        .mobile-only .st3,
+        .mobile-only .st4,
+        .mobile-only .st5,
+        .mobile-only .st6 {
+            stroke-width: 25px;
+            /* Aquí controlas el grosor de tu nuevo diseño móvil */
+        }
+}
+
+
+
+/* capa texto+botón */
+.contact__header {
+    text-align: center;
+    padding: 0 var(--padding-movil);
+    display: flex;
+    flex-direction: column;
+}
+
+.contact__titulo1 {
+    font-family: var(--title-font-excon);
+    font-size: var(--text-size-title-excon);
+    font-weight: 400;
+}
+
+.contact__titulo2 {
+    font-family: var(--title-font-playfair);
+    font-size: var(--text-size-title-playfairdisplay);
+    font-style: italic;
+    font-weight: 700;
+}
+
+.contact-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    /* Un poco más abajo del centro */
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    /* Invisible al principio */
+    visibility: hidden;
+    transition: all 0.8s ease-out;
+    /* Animación suave de aparición */
+    pointer-events: none;
+    /* Evita que el botón se pueda clicar antes de tiempo */
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-secciones);
+    
+}
+
+/* Esta clase la añadiremos con JS cuando el scroll llegue al final */
+.contact-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%);
+    /* Sube a su posición central original */
+    pointer-events: auto;
+}
+
+/* SECCIÓN PATH */
+
+/* FOOTER MÓVIL */
+.footer-desktop {
+    display: none;
+}
+
+.footer-mobile {
+    background: var(--clr-corporativo-yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--nav-height) 0 0 0;
+    gap: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-mobile__bottom {
+    margin-top: auto;
+    gap: clamp(10px, 2vh, 20px);
+    padding-bottom: clamp(20px, 4vh, 40px);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.footer-mobile__top {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(20px, 5vh, 40px) var(--padding-movil);
+    gap: clamp(300px, 8vh, 60px);
+    width: 100%;
+    font-family: var(--text-font-inter);
+    font-weight: 500;
+}
+
+.footer-mobile__email {
+    color: var(--clr-black);
+    text-decoration: none;
+    font-size: var(--text-size-text);
+    align-self: flex-start; /* pegado a la izquierda */
+}
+
+
+.footer-mobile__legal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* pegado a la derecha */
+    align-self: flex-end; /* el bloque entero a la derecha */
+    gap: 20px;
+    text-decoration: none;
+    font-size: var(--text-size-text);
+}
+
+.footer-mobile__legal a {
+    color: var(--clr-black);
+    text-decoration: none;
+    text-align: right;
+}
+/* FOOTER MÓVIL */
+
+/* RESPONSIVE: DESKTOP */
+/* Escondido en móvil */
+@media (min-width: 768px) {
+
+/* CLASES UTILITARIAS DESKTOP */
+.titulo2-playfair {
+        margin-top: clamp(-12px, -4vh, -9px);
+    }
+
+.mobile {
+            display: none;
+        }
+    
+        .desktop {
+            display: block;
+        }
+
+
+    .nav__burguer,
+    .menu__overlay {
+        display: none;
+    }
+
+    .header__menu {
+        display: block;
+    }
+
+    .footer-mobile {
+        display: none;
+    }
+
+.titulo-pagina {
+    padding: clamp(170px, 9vh, 300px) 0 clamp(10px, 3vh, 40px) 0;
+        
+}
+
+    .header__menu_list {
+        display: flex;
+        flex-direction: column; /* apilados verticalmente */
+        gap: 15px; /* espacio entre links */
+        list-style: none;
+        text-align: right;
+        font-size: var(--text-size-text);
+    }
+
+    .header__menu_list a {
+        text-decoration: none;
+        color: var(--clr-black);
+        font-weight: 500;
+        /* el pseudoelemento: :after necesita un punto de referencia para posicionarse. Con relative le decimos que se posicione relativo al enlace, no a la página. */
+        position: relative; /* necesario para el pseudoelemento */
+    }
+    
+    .header__menu_list a::after {
+        /* Los pseudoelementos: :after necesitan obligatoriamente la propiedad content para existir en el DOM. Lo dejamos vacío porque no queremos texto, solo el elemento visual. */
+        content: '';
+        /* Saca la línea del flujo normal del documento y la posicionamos manualmente respecto al enlace. */
+        position: absolute;
+        bottom: -2px;
+        right: 0;
+        width: 0; /* empieza sin ancho */
+        height: 2px;
+        background: var(--clr-black);
+        transition: width 0.3s ease;
+        }
+        
+    .header__menu_list a:hover::after {
+        width: 100%; /* se expande al ancho del texto al hacer hover */
+        }
+    
+    .nav-container {
+        background: transparent;
+        border-bottom: none; /* quitamos el borde también */
+        align-items: flex-start; /* los links se alinean arriba */
+        padding: 40px 2vw; 
+        }
+
+/* La otra opción para el header  sería simplemente no usar blur en desktop y en cambio hacer que los textos del menú tengan siempre legibilidad,
+por ejemplo añadiendo una sombra suave al texto */
+   /* .nav--scrolled {
+       background: transparent;
+       backdrop-filter: none;
+       -webkit-backdrop-filter: none;
+   }
+
+   .nav--scrolled .header__menu_list a,
+   .nav--scrolled .emes-logo-svg .logo-emes {
+       filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.8));
+   } */
+
+
+    .hero__img--mobile {
+        display: none;
+    }
+
+    .hero__img--desktop {
+        display: block;
+    }
+
+/* SECCIÓN SERVICIOS DESKTOP */
+.seccion-servicios {
+    padding: var(--padding-secciones) var(--padding-desktop);
+}
+
+    .servicios__lista {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: clamp(10px, 1.8vw, 15px);
+        align-items: start;
+        container-type: inline-size;
+    }
+
+    .servicio:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .servicio:nth-child(2) {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    .servicio:nth-child(3) {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        align-self: center;
+    }
+
+    .servicio:nth-child(4) {
+        grid-column: 3;
+        grid-row: 2;
+    }
+
+    .servicio:nth-child(5) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .servicio,
+    .servicio--derecha {
+        flex-direction: column;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .servicio__icono {
+    width: clamp(150px, 26cqi, 320px);
+    }
+
+    .servicio__icono svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .servicio__icono--vertical {
+            width: auto;
+            height: clamp(60px, 23cqi, 240px);
+
+        }
+    
+    .servicio__icono--vertical svg {
+            width: auto;
+            height: 100%;
+        }
+
+    /* el bloque de texto siempre visible en desktop */
+    .servicio__texto,
+    .servicio__texto.visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        text-align: center;
+    }
+
+    /* el nombre siempre visible */
+    .servicio__nombre {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+        margin-bottom: 0;
+    }
+
+    .servicio__cta {
+        font-size: clamp(0.7rem, 1.8vw, 1.3rem);
+        }
+    
+    .servicio__descripcion {
+        font-size: clamp(0.7rem, 1.6vw, 1.1rem);
+        }
+    /* cta y descripcion ocultos por defecto, aparecen al hover */
+    .servicio__cta,
+    .servicio__descripcion {
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        text-align: left;
+    }
+
+    .servicio:hover .servicio__cta,
+    .servicio:hover .servicio__descripcion {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .servicio__cta {
+        margin-top: 12px;
+        margin-bottom: 8px;
+        }
+    
+    .servicio__descripcion {
+        margin-top: 4px;
+        }
+
+/* SECCION PROYECTOS DESKTOP */
+/* En desktop el zoom aparece con hover */
+.proyectos__slider-wrapper {
+    cursor: grab;
+    --thumb-width: clamp(280px, 28vw, 420px);
+    --thumb-height: calc(var(--thumb-width) * 4 / 3);
+}
+
+/* tarjetas más anchas en desktop */
+.proyecto {
+    width: clamp(280px, 28vw, 420px);
+}
+
+/* DESKTOP: texto oculto por defecto */
+.proyecto__info {
+    padding-left: var(--padding-desktop);
+    padding-right: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.proyecto__imagen-wrapper:hover~.proyecto__info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* zoom en la imagen al hacer hover */
+.proyecto__imagen-wrapper:hover .proyecto__img {
+    transform: scale(1.04);
+}
+
+.proyectos__flecha {
+    display: flex;
+    position: absolute;
+    top: calc(var(--thumb-height) / 2);
+    transform: translateY(-50%);
+    z-index: 10;
+    color: var(--clr-corporativo-yellow);
+    background:hsl(328, 73%, 23%, 0.8);
+    border: 1px hsl(328, 73%, 23%, 0.8);
+    border-radius: 50%;
+    width: clamp(36px, 3vw, 48px);
+    height: clamp(36px, 3vw, 48px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.proyectos__flecha:hover {
+    opacity: 0.5;
+}
+
+.proyectos__flecha--prev {
+    left: var(--padding-desktop);
+}
+
+.proyectos__flecha--next {
+    right: var(--padding-desktop);
+}
+
+/* SECCION PROYECTOS DESKTOP */
+
+
+/* SECCIÓN PATH DESKTOP */
+#logo-animado {
+    /* width: 90%; */
+    /* En desktop volvemos al tamaño estándar */
+    /* max-width: 1200px; */
+    transform: translateY(0);
+}
+.svg-animation-section {
+    height: 300vh;
+}
+
+/* SECCIÓN PATH DESKTOP */
+
+/* FOOTER */
+    .footer-desktop {
+        /* con esto hacemos que las dos columnas left y right se pongan en fila */
+        display: flex;
+        /* con stretch obligamos a las columnas a ocupar todo el alto del footer */
+        align-items: stretch;
+        justify-content: space-between;
+        background-color: var(--clr-corporativo-yellow);
+        padding-bottom: 80px;
+        min-height: 100vh;
+        /* para que overflow:hidden funcione correctamente sobre los hijos */
+        position: relative;
+        /* si el logo decorativo es demasiado grande y se sale del footer lo recorta limpiamente */
+        overflow: hidden;
+    }
+
+    .footer-desktop__left {
+        display: flex;
+        /* apilamos logo y copyright */
+        flex-direction: column;
+        /* con esto ambas cosas caen hacia abajo*/
+        justify-content: flex-end;
+        /* Esta columna ocupa toda la altura del footer, no solo la altura de su contenido. Sin esto,  justify-content: space-between no tendría espacio entre el que repartir */
+        /* align-self: stretch;   */
+        /* le damos más espacio a la parte del logo */
+        width: 65%;
+    }
+
+     .footer__brand-group {
+        display: flex;
+        flex-direction: column;
+        /* espacio entre el logo  y el texto de copyright */
+        gap: 30px;
+        /* Alineamos a la izquierda para que el texto nazca donde empieza el logo */
+         align-items: flex-start;
+        }
+
+    .footer-desktop__logo {
+        /*Así escala suavemente con la pantalla */
+       width: clamp(400px, 50vw, 800px);
+        /* Mantiene las proporciones originales del SVG */
+        height: auto;
+        margin: 0;
+        padding: var(--padding-desktop);
+    }
+
+        .footer-desktop__copy {
+            font-family: var(--text-font-inter);
+            font-size: var(--text-size-copyright);
+            color: var(--clr-black);
+            /* pegado al fondo del padding */
+            margin: 0;
+            padding-left: 5vw;
+            padding-bottom: vw;
+        }
+    
+        .footer-desktop__right {
+            display: flex;
+            flex-direction: column;
+            /* todo alineado a la derecha */
+            align-items: flex-end; 
+            justify-content: space-between;
+            /* align-self: stretch; */
+                /* Espacio mínimo entre elementos por si la pantalla es justa y space-between los acerca demasiado */
+            /* gap: 16px; */
+            /* text-align: right; */
+            padding: var(--padding-desktop);
+        }
+
+        /* contenedor para agrupar los iconos sociales + email y así conseguir el diseño deseado */
+      .footer-desktop__contact-group {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 20px;
+                padding-top: 300px;
+        }
+    
+        .social-icons-desktop {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .size-icons {
+            width: clamp(20px, 6vw, 35px);
+            height: clamp(20px, 6vw, 35px);
+        }
+        .social-icons-desktop a {
+            /* Necesario para que align-items funcione en el enlace y el icono no tenga espacio extra debajo (baseline) */
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s ease;
+        }
+    
+        .social-icons-desktop a:hover {
+            opacity: 0.6;
+        }
+
+        .social-icons-desktop svg {
+            width: clamp(20px, 6vw, 35px);
+            height: clamp(20px, 6vw, 35px);
+            }
+    
+        .footer-desktop__email {
+            font-family: var(--text-font-inter);
+            font-size: var(--text-size-text);
+            color: var(--clr-black);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+    
+        .footer-desktop__email:hover {
+            /* Al pasar el ratón, el email pierde opacidad*/
+            opacity: 50%;
+        }
+    
+        .footer-desktop__legal {
+            display: flex;
+            flex-direction: column; /* Los tres links legales apilados verticalmente */
+            /* align-items: flex-end; Alineados a la derecha */
+           gap: 12px;
+           font-size: var(--text-size-text);
+           margin-bottom: 0;
+        }
+    
+        .footer-desktop__legal a {
+            font-family: var(--text-font-inter);
+            font-size: var(--text-size-text);
+            color: var(--clr-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+    
+        .footer-desktop__legal a:hover {
+            opacity: 50%;
+        }
+/* FOOTER */
+
+
+}
