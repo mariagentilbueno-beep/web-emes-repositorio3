@@ -510,8 +510,9 @@
 
             //formulario
 
-            // 1. Seleccionamos los elementos principales
-            const contactoForm = document.getElementById('contacto-form'); const mainSection = document.querySelector('.contacto-section');
+         // 1. Seleccionamos los elementos principales
+            const contactoForm = document.getElementById('contacto-form');
+            const mainSection = document.querySelector('.contacto-section');
             const thankYouMessage = document.getElementById('thank-you-message');
             const textarea = document.getElementById('idea');
 
@@ -531,23 +532,47 @@
                 // Validamos que el formulario sea correcto (HTML5 required)
                 if (contactoForm.checkValidity()) {
 
-                    // 1. Añadimos la clase de éxito al main para que el CSS oculte el resto
-                    if (mainSection) {
-                        mainSection.classList.add('is-success');
-                    }
+                    // NUEVO: Recogemos los datos que el usuario ha escrito en el formulario
+                    const formData = new FormData(contactoForm);
 
-                    // 2. Mostramos el contenedor de agradecimiento
-                    if (thankYouMessage) {
-                        thankYouMessage.style.display = 'block';
+                    // NUEVO: Enviamos los datos a enviar.php en segundo plano
+                    fetch('enviar.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            // NUEVO: Si enviar.php nos responde "success", disparamos tus animaciones
+                            if (data.trim() === 'success') {
 
-                        // Un pequeño delay para que la animación de CSS (fadeIn) se aprecie
-                        setTimeout(() => {
-                            thankYouMessage.classList.add('is-visible');
-                        }, 50);
-                    }
+                                // 1. Añadimos la clase de éxito al main para que el CSS oculte el resto
+                                if (mainSection) {
+                                    mainSection.classList.add('is-success');
+                                }
 
-                    // 3. Scroll hacia arriba para asegurar que vean el mensaje
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                // 2. Mostramos el contenedor de agradecimiento
+                                if (thankYouMessage) {
+                                    thankYouMessage.style.display = 'block';
+
+                                    // Un pequeño delay para que la animación de CSS (fadeIn) se aprecie
+                                    setTimeout(() => {
+                                        thankYouMessage.classList.add('is-visible');
+                                    }, 50);
+                                }
+
+                                // 3. Scroll hacia arriba para asegurar que vean el mensaje
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                            } else {
+                                // NUEVO: Por si acaso falla la conexión con la base de datos de Hostinger
+                                alert('Ups, hubo un problema en el servidor al guardar tus datos. Por favor, inténtalo de nuevo.');
+                            }
+                        })
+                        .catch(error => {
+                            // NUEVO: Por si hay un error de red o de código
+                            console.error('Error:', error);
+                            alert('Hubo un error al enviar el formulario. Revisa tu conexión.');
+                        });
                 }
             });
 
