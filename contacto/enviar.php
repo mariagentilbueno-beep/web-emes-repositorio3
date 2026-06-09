@@ -10,7 +10,7 @@ $conexion = new mysqli($host, $db_user, $db_pass, $db_name);
 
 // Comprobar la conexión
 if ($conexion->connect_error) {
-    die("Error crítico de conexión: " . $conexion->connect_error);
+    die("Error crítico de conexión. Inténtalo más tarde." );
 }
 
 // Asegurar que los textos acepten eñes y acentos correctamente

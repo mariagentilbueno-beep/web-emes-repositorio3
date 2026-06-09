@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /uso de datos/
+
+Sitemap: https://emesagencia.es/sitemap.xml
